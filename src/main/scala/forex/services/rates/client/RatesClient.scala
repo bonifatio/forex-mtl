@@ -8,6 +8,7 @@ import org.http4s.circe.JsonDecoder
 import org.http4s.client.Client
 import org.http4s.client.dsl.Http4sClientDsl
 import cats.implicits._
+import forex.config.OneFrameApiConfig
 import forex.services.rates.errors.Error.OneFrameLookupFailed
 import org.http4s.headers.Accept
 import org.http4s._
@@ -19,10 +20,11 @@ trait RatesClient[F[_]] {
 
 object RatesClient {
   def make[F[_]: BracketThrow: JsonDecoder](
-      client: Client[F]
+      client: Client[F],
+      config: OneFrameApiConfig
   ): RatesClient[F] =
     new RatesClient[F] with Http4sClientDsl[F] {
-      val baseUri = "http://localhost:8080"
+      val baseUri = s"${config.scheme}${config.http.host}:${config.http.port}"
 
       def getRates(pairs: List[Rate.Pair]): F[List[OneFrameApiRecord]] = {
         import forex.http.rates.Protocol._
@@ -36,7 +38,7 @@ object RatesClient {
           .flatMap { uri =>
             val request = Request[F](Method.GET)
               .withUri(uri.withMultiValueQueryParams(pairsFormatted))
-              .withHeaders(Header("token", "10dc303535874aeccc86a8251e6992f5"), Accept(MediaType.application.json))
+              .withHeaders(Header("token", config.token), Accept(MediaType.application.json))
 
             client.run(request).use { resp =>
               resp.status match {
