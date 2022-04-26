@@ -3,12 +3,14 @@ package forex
 import scala.concurrent.ExecutionContext
 import cats.effect._
 import forex.config._
+import forex.http.rates.Protocol.OneFrameApiRecord
 import forex.services.rates.client.RatesClient
 import fs2.Stream
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+import scalacache.caffeine._
 
 object Main extends IOApp {
 
@@ -21,13 +23,17 @@ class Application[F[_]: ConcurrentEffect: Timer] {
 
   implicit val logger = Slf4jLogger.getLogger[F]
 
+  val ratesCache = CaffeineCache[List[OneFrameApiRecord]]
+
   def stream(ec: ExecutionContext): Stream[F, Unit] =
     for {
-      config <- Config.stream("app")
-        .evalTap(cfg => Logger[F].info(s"Loaded config $cfg"))
+      config <- Config
+                 .stream("app")
+                 .evalTap(cfg => Logger[F].info(s"Loaded config $cfg"))
 
       module = new Module[F](
         config,
+        ratesCache,
         BlazeClientBuilder[F](ec)
           .withRequestTimeout(config.oneFrameApi.http.timeout)
           .resource

@@ -66,7 +66,9 @@ libraryDependencies ++= Seq(
   Libraries.pureConfig,
   Libraries.logback,
   Libraries.log4Cats,
-  Libraries.scalaTest        % Test,
-  Libraries.scalaCheck       % Test,
-  Libraries.catsScalaCheck   % Test
+  Libraries.scalaCacheCaffeine,
+  Libraries.scalaCacheCatsEffect,
+  Libraries.scalaTest      % Test,
+  Libraries.scalaCheck     % Test,
+  Libraries.catsScalaCheck % Test
 )

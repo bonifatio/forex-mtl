@@ -16,6 +16,7 @@ object Dependencies {
     val scalaTest      = "3.2.7"
     val catsScalaCheck = "0.3.0"
     val log4Cats       = "1.5.1"
+    val scalaCache     = "0.28.0"
   }
 
   object Libraries {
@@ -26,17 +27,19 @@ object Dependencies {
     lazy val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
     lazy val fs2        = "co.fs2"        %% "fs2-core"    % Versions.fs2
 
-    lazy val http4sDsl         = http4s("http4s-dsl")
-    lazy val http4sServer      = http4s("http4s-blaze-server")
-    lazy val http4sClient      = http4s("http4s-client")
-    lazy val http4sBlazeClient = http4s("http4s-blaze-client")
-    lazy val http4sCirce       = http4s("http4s-circe")
-    lazy val circeCore         = circe("circe-core")
-    lazy val circeGeneric      = circe("circe-generic")
-    lazy val circeGenericExt   = circe("circe-generic-extras")
-    lazy val circeParser       = circe("circe-parser")
-    lazy val pureConfig        = "com.github.pureconfig" %% "pureconfig" % Versions.pureConfig
-    lazy val log4Cats          = "org.typelevel" %% "log4cats-slf4j" % Versions.log4Cats
+    lazy val http4sDsl            = http4s("http4s-dsl")
+    lazy val http4sServer         = http4s("http4s-blaze-server")
+    lazy val http4sClient         = http4s("http4s-client")
+    lazy val http4sBlazeClient    = http4s("http4s-blaze-client")
+    lazy val http4sCirce          = http4s("http4s-circe")
+    lazy val circeCore            = circe("circe-core")
+    lazy val circeGeneric         = circe("circe-generic")
+    lazy val circeGenericExt      = circe("circe-generic-extras")
+    lazy val circeParser          = circe("circe-parser")
+    lazy val pureConfig           = "com.github.pureconfig" %% "pureconfig" % Versions.pureConfig
+    lazy val log4Cats             = "org.typelevel" %% "log4cats-slf4j" % Versions.log4Cats
+    lazy val scalaCacheCaffeine   = "com.github.cb372" %% "scalacache-caffeine" % Versions.scalaCache
+    lazy val scalaCacheCatsEffect = "com.github.cb372" %% "scalacache-cats-effect" % Versions.scalaCache
 
     // Compiler plugins
     lazy val kindProjector = "org.typelevel" %% "kind-projector" % Versions.kindProjector
