@@ -9,6 +9,7 @@ case class ApplicationConfig(
 
 case class HttpConfig(
     host: String,
+    scheme: String,
     port: Int,
     timeout: FiniteDuration
 )

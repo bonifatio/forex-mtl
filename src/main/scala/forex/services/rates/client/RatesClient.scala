@@ -24,7 +24,7 @@ object RatesClient {
       config: OneFrameApiConfig
   ): RatesClient[F] =
     new RatesClient[F] with Http4sClientDsl[F] {
-      val baseUri = s"${config.scheme}${config.http.host}:${config.http.port}"
+      val baseUri = s"${config.http.scheme}://${config.http.host}:${config.http.port}"
 
       def getRates(pairs: List[Rate.Pair]): F[List[OneFrameApiRecord]] = {
         import forex.http.rates.Protocol._
