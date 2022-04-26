@@ -1,10 +1,11 @@
 package forex
 
 import scala.concurrent.ExecutionContext
-
 import cats.effect._
 import forex.config._
+import forex.services.rates.client.RatesClient
 import fs2.Stream
+import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.server.blaze.BlazeServerBuilder
 
 object Main extends IOApp {
@@ -19,7 +20,7 @@ class Application[F[_]: ConcurrentEffect: Timer] {
   def stream(ec: ExecutionContext): Stream[F, Unit] =
     for {
       config <- Config.stream("app")
-      module = new Module[F](config)
+      module = new Module[F](config, BlazeClientBuilder[F](ec).resource.map(RatesClient.make[F]))
       _ <- BlazeServerBuilder[F](ec)
             .bindHttp(config.http.port, config.http.host)
             .withHttpApp(module.httpApp)

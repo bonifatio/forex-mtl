@@ -6,7 +6,7 @@ import forex.domain.Rate.Pair
 import forex.domain._
 import io.circe._
 import io.circe.generic.extras.Configuration
-import io.circe.generic.extras.semiauto.deriveConfiguredEncoder
+import io.circe.generic.extras.semiauto.{ deriveConfiguredDecoder, deriveConfiguredEncoder }
 
 object Protocol {
 
@@ -24,6 +24,13 @@ object Protocol {
       timestamp: Timestamp
   )
 
+  final case class OneFrameApiRecord(
+      from: Currency,
+      to: Currency,
+      price: Price,
+      timeStamp: Timestamp
+  )
+
   implicit val currencyEncoder: Encoder[Currency] =
     Encoder.instance[Currency] { show.show _ andThen Json.fromString }
 
@@ -36,4 +43,9 @@ object Protocol {
   implicit val responseEncoder: Encoder[GetApiResponse] =
     deriveConfiguredEncoder[GetApiResponse]
 
+  implicit val oneFrameRecordEncoder: Encoder[OneFrameApiRecord] =
+    deriveConfiguredEncoder[OneFrameApiRecord]
+
+  implicit val oneFrameRecordDecoder: Decoder[OneFrameApiRecord] =
+    deriveConfiguredDecoder[OneFrameApiRecord]
 }

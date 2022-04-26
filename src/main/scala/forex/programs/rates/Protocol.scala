@@ -8,5 +8,4 @@ object Protocol {
       from: Currency,
       to: Currency
   )
-
 }
