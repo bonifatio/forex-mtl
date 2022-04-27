@@ -2,7 +2,6 @@ package forex.domain
 
 import cats.Show
 import cats.implicits.showInterpolator
-//import cats.implicits.toShow
 
 case class Rate(
     pair: Rate.Pair,

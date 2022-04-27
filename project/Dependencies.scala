@@ -17,6 +17,7 @@ object Dependencies {
     val catsScalaCheck = "0.3.0"
     val log4Cats       = "1.5.1"
     val scalaCache     = "0.28.0"
+    val weaver         = "0.6.0"
   }
 
   object Libraries {
@@ -38,8 +39,11 @@ object Dependencies {
     lazy val circeParser          = circe("circe-parser")
     lazy val pureConfig           = "com.github.pureconfig" %% "pureconfig" % Versions.pureConfig
     lazy val log4Cats             = "org.typelevel" %% "log4cats-slf4j" % Versions.log4Cats
+    lazy val log4CatsNoOp         = "org.typelevel" %% "log4cats-noop" % Versions.log4Cats
     lazy val scalaCacheCaffeine   = "com.github.cb372" %% "scalacache-caffeine" % Versions.scalaCache
     lazy val scalaCacheCatsEffect = "com.github.cb372" %% "scalacache-cats-effect" % Versions.scalaCache
+    val weaverCats                = "com.disneystreaming" %% "weaver-cats" % Versions.weaver
+    val weaverScalaCheck          = "com.disneystreaming" %% "weaver-scalacheck" % Versions.weaver
 
     // Compiler plugins
     lazy val kindProjector = "org.typelevel" %% "kind-projector" % Versions.kindProjector
