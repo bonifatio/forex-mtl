@@ -16,7 +16,7 @@ scalacOptions ++= Seq(
   "-language:implicitConversions", // Allow definition of implicit functions called views
   "-unchecked", // Enable additional warnings where generated code depends on assumptions.
   "-Xcheckinit", // Wrap field accessors to throw an exception on uninitialized access.
-  //"-Xfatal-warnings", // Fail the compilation if there are any warnings.
+  "-Xfatal-warnings", // Fail the compilation if there are any warnings.
   "-Xlint:adapted-args", // Warn if an argument list is modified to match the receiver.
   "-Xlint:delayedinit-select", // Selecting member of DelayedInit.
   "-Xlint:inaccessible", // Warn about inaccessible types in method signatures.
@@ -45,6 +45,8 @@ scalacOptions ++= Seq(
   "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
   "-Ycache-macro-class-loader:last-modified" // and macro definitions. This can lead to performance improvements.
 )
+
+testFrameworks += new TestFramework("weaver.framework.CatsEffect")
 
 resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
